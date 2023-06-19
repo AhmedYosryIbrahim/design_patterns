@@ -1,5 +1,5 @@
+import 'package:factory_design_patterne/abstract_factory.dart';
 import 'package:factory_design_patterne/factory_method.dart';
-import 'package:factory_design_patterne/platfom_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -51,12 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 20,
             ),
-            PlatformButton(Theme.of(context).platform).build(
-              onPressed: () {
-                print('button clicked');
-              },
-              child: const Text('click'),
-            )
+            AbstractFactorySecoundImpl.buildButton(context, 'click', () {
+              print('button clicked');
+            }),
+            const SizedBox(
+              height: 20,
+            ),
+            AbstractFactorySecoundImpl.buildIndecator(context),
           ],
         ),
       ),
