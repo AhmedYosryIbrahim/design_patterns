@@ -1,5 +1,8 @@
 import 'package:factory_design_patterne/abstract_factory.dart';
 import 'package:factory_design_patterne/factory_method.dart';
+import 'package:factory_design_patterne/first_singleton_impl.dart';
+import 'package:factory_design_patterne/second_singleton_impl.dart';
+import 'package:factory_design_patterne/third_singleton_impl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,6 +37,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //this is singleton instance
+  final FirstSingletonImpl firstSingleton = FirstSingletonImpl.getInstance();
+  //this is singleton instance and i recommend that
+  final SecondSingletonImpl secondSingletonImpl = SecondSingletonImpl.instance;
+  //this is singleton instance i don't recommend that it difficult to understands that
+  final ThirdSingletonImpl thirdSingletonImpl = ThirdSingletonImpl();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 20,
             ),
-            AbstractFactorySecoundImpl.buildButton(context, 'click', () {
+            AbstractFactorySecoundImpl.instance.buildButton(context, 'click',
+                () {
               print('button clicked');
             }),
             const SizedBox(
               height: 20,
             ),
-            AbstractFactorySecoundImpl.buildIndecator(context),
+            AbstractFactorySecoundImpl.instance.buildIndecator(context),
           ],
         ),
       ),

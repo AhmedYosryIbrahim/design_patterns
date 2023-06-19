@@ -22,13 +22,24 @@ class AbstractFactoryImpl implements AbstractFactory {
 }
 
 class AbstractFactorySecoundImpl {
-  static Widget buildButton(
+  static AbstractFactorySecoundImpl? _instance;
+
+  AbstractFactorySecoundImpl._internal() {
+    print('abstract factory call');
+  }
+
+  static AbstractFactorySecoundImpl get instance {
+    _instance ??= AbstractFactorySecoundImpl._internal();
+    return _instance!;
+  }
+
+  Widget buildButton(
       BuildContext context, String text, VoidCallback onPressed) {
     return PlatformButton(Theme.of(context).platform)
         .build(onPressed: onPressed, child: Text(text));
   }
 
-  static Widget buildIndecator(BuildContext context) {
+  Widget buildIndecator(BuildContext context) {
     return PlatformIndecator(Theme.of(context).platform).build();
   }
 }
