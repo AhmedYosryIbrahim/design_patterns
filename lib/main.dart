@@ -1,6 +1,10 @@
+import 'package:factory_design_patterne/factory_method.dart';
+import 'package:factory_design_patterne/platfom_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  final Employee employee = Employee(EmployeeType.hrManager);
+  employee.work();
   runApp(const MyApp());
 }
 
@@ -37,16 +41,22 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'platform buttons',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
+            PlatformButton(Theme.of(context).platform).build(
+              onPressed: () {
+                print('button clicked');
+              },
+              child: const Text('click'),
+            )
           ],
         ),
       ),
