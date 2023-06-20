@@ -1,3 +1,4 @@
+import 'package:factory_design_patterne/pizza_builder_pattern.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,6 +31,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PizzaDirectory directory = PizzaDirectory();
+  final SmallTomatoPizzaBuilder smallTomatoPizzaBuilder =
+      SmallTomatoPizzaBuilder();
+  final LargeHotPizzaBuilder largeHotPizzaBuilder = LargeHotPizzaBuilder();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +42,32 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'platform buttons',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
+            TextButton(
+                onPressed: () {
+                  directory.setPizzaBuilder(smallTomatoPizzaBuilder);
+                  directory.createPizza();
+                  final Pizza pizza = directory.getPizza();
+                  print('${pizza.name} , ${pizza.size} , ${pizza.sauce}');
+                },
+                child: const Text('create small pizza')),
+            TextButton(
+                onPressed: () {
+                  directory.setPizzaBuilder(largeHotPizzaBuilder);
+                  directory.createPizza();
+                  final Pizza pizza = directory.getPizza();
+                  print('${pizza.name} , ${pizza.size} , ${pizza.sauce}');
+                },
+                child: const Text('create large pizza'))
           ],
         ),
       ),
