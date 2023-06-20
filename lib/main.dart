@@ -1,3 +1,4 @@
+import 'package:factory_design_patterne/adapter_pattern.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,26 +31,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PostApi postApi = PostApiImpl();
+  List<Post> posts = [];
+
+  @override
+  void initState() {
+    posts = postApi.getPosts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'platform buttons',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-      ),
-    );
+        body: ListView.builder(
+          itemCount: posts.length,
+          itemBuilder: (context, index) {
+            final post = posts[index];
+
+            return ListTile(
+              title: Text(post.title),
+              subtitle: Text(post.bio),
+            );
+          },
+        ));
   }
 }
