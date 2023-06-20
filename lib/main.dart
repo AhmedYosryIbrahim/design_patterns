@@ -1,3 +1,4 @@
+import 'package:factory_design_patterne/prototype_pattern.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,23 +31,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Person person1 = Person(
+    name: 'ahmed',
+    age: '25',
+    nation: 'egypt',
+  );
   @override
   Widget build(BuildContext context) {
+    final Person person2 = person1.copyWith(name: 'yosry');
+    final Person person3 = person1.clone();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'platform buttons',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
+            Text(person1.name),
+            Text(person2.name),
+            Text(person3.name),
           ],
         ),
       ),
