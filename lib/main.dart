@@ -1,3 +1,4 @@
+import 'package:factory_design_patterne/shipping.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ShipingCostCalculator? shipingCostCalculator;
+  ShippingOptions? shippingOptions;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +40,66 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'platform buttons',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Strategy pattern',
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          RadioListTile(
+            title: const Text('purulator calculator'),
+            value: ShippingOptions.purulator,
+            groupValue: shippingOptions,
+            onChanged: (value) {
+              setState(() {
+                shippingOptions = value;
+                shipingCostCalculator = PurulatorCalculator();
+              });
+            },
+          ),
+          RadioListTile(
+            title: const Text('ups calculator'),
+            value: ShippingOptions.ups,
+            groupValue: shippingOptions,
+            onChanged: (value) {
+              setState(() {
+                shippingOptions = value;
+                shipingCostCalculator = UpsCalculator();
+              });
+            },
+          ),
+          RadioListTile(
+            title: const Text('fedex calculator'),
+            value: ShippingOptions.fedex,
+            groupValue: shippingOptions,
+            onChanged: (value) {
+              setState(() {
+                shippingOptions = value;
+                shipingCostCalculator = FedexCalculator();
+              });
+            },
+          ),
+          RadioListTile(
+            title: const Text('amazon calculator'),
+            value: ShippingOptions.amazon,
+            groupValue: shippingOptions,
+            onChanged: (value) {
+              setState(() {
+                shippingOptions = value;
+                shipingCostCalculator = AmazonCalculator();
+              });
+            },
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            child:
+                Text('${shipingCostCalculator?.calculateShipingCost() ?? 0.0}'),
+          )
+        ],
       ),
     );
   }
